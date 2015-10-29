@@ -1,6 +1,8 @@
 # Sidekiq Uniq
 
-This is an extension for Sidekiq that by default doesn't allow a job to be enqueued if it's already in the queue.
+This is an extension for Sidekiq that by default doesn't allow a job to be enqueued if it's already in the queue or being processed.
+
+It does so by keeping in Redis the information about each job's status, where a job is identified by its class and arguments. Possible statuses are: enqueued, running and completed. In case a job fails and is unable to release the lock, all status keys expire (by using Redis' `EXPIRE` command) after some time (which can be defined by `Sidekiq::Uniq::Status.expiration = <time in seconds>`).
 
 Useful to use with recurring jobs, like the ones created by [sidekiq-cron](https://github.com/ondrejbartas/sidekiq-cron).
 
@@ -28,6 +30,8 @@ Or install it yourself as:
 If you want the default behavior (which is to not allow a job to be enqueued if it's already in the queue), nothing is needed.
 
 If you want to avoid the default behavior for a given job, just add `sidekiq_options unique: false` to it.
+
+Expiration time can be defined like this: `Sidekiq::Uniq::Status.expiration = <time in seconds>`. The dafault value is 30 minutes.
 
 ## Contributing
 

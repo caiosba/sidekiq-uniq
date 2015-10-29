@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Caio SBA"]
   spec.email         = ["caiosba@gmail.com"]
 
-  spec.summary       = %q{Unique enqueued jobs for Sidekiq}
-  spec.description   = %q{This is a Sidekiq extension that doesn't allow a job to be enqueued if it's already in the queue}
+  spec.summary       = %q{Unique enqueued/processing jobs for Sidekiq}
+  spec.description   = %q{This is a Sidekiq extension that doesn't allow a job to be enqueued if it's already in the queue or being processed}
   spec.homepage      = "https://github.com/caiosba/sidekiq-uniq"
   spec.license       = "MIT"
 
