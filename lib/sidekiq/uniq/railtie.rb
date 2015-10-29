@@ -7,13 +7,13 @@ module Sidekiq
 
         Sidekiq.configure_server do |config|
           config.client_middleware do |chain|
-            chain.add Sidekiq::Uniq::Middleware
+            chain.add Sidekiq::Uniq::ServerMiddleware
           end
         end
 
         Sidekiq.configure_client do |config|
           config.client_middleware do |chain|
-            chain.add Sidekiq::Uniq::Middleware
+            chain.add Sidekiq::Uniq::ClientMiddleware
           end
         end
 
