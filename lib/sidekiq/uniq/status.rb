@@ -12,7 +12,7 @@ module Sidekiq
       end
 
       def self.key(msg)
-        KEY + ':' + Digest::MD5.hexdigest(msg[:class].to_s + ':' + msg[:args].inspect)
+        KEY + ':' + Digest::MD5.hexdigest(msg['class'].to_s + ':' + msg['args'].inspect)
       end
 
       def self.save_status(msg, status, redis = nil)
@@ -30,7 +30,7 @@ module Sidekiq
         Status.redis(redis) do |conn|
           status = conn.get(Status.key(msg)).to_s
         end
-        status === 'running' || status === 'enqueued'
+        (status === 'running' || status === 'enqueued')
       end
 
       def self.clear(redis = nil)

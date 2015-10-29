@@ -8,13 +8,11 @@ module Sidekiq
       # Runs before job is added to queue
 
       def call(worker_class, msg, queue_name, redis_pool)
-        if msg['unique'] === false
-          yield
-        else
+        unless msg['unique'] === false
           return false if Status.running_or_enqueued(msg, redis_pool)
           Status.save_status(msg, :enqueued, redis_pool)
-          yield
         end
+        yield
       end
     end
 
