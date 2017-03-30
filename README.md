@@ -31,7 +31,7 @@ If you want the default behavior (which is to not allow a job to be enqueued if 
 
 If you want to avoid the default behavior for a given job, just add `sidekiq_options unique: false` to it.
 
-Expiration time can be defined like this: `Sidekiq::Uniq::Status.expiration = <time in seconds>`. The dafault value is 30 minutes.
+Expiration time can be defined like this: `Sidekiq::Uniq::Status.expiration = <time in seconds>`. The default value is 30 minutes.
 
 ## Contributing
 
